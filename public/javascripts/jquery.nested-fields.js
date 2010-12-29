@@ -37,7 +37,7 @@
       options.addHandler.bind('click.nested-fields', function(e) {
         e.preventDefault();
         var newItem = prepareTemplate(options);
-        insertItem(newItem, options);
+        insertItemWithCallbacks(newItem, null, options);
       });
       
       $(options.item, options.container).each(function(i, item) {
@@ -47,10 +47,10 @@
       return $this;
     },
     
-    insert: function() {
+    insert: function(callback) {
       var options = getOptions(this);
       var newItem = prepareTemplate(options);
-      return insertItem(newItem, options);
+      insertItemWithCallbacks(newItem, callback, options);
     },
     
     remove: function(element) {
@@ -99,14 +99,22 @@
     newItem.attr('data-new-record', true);
     newItem.attr('data-record-id', newId);
     
+    bindRemoveEvent(newItem, options);
+    
     return newItem;
   }
   
   function insertItem(newItem, options) {
-    bindRemoveEvent(newItem, options);
+    removeNone(options);
+    options.container.append(newItem);
+  }
+  
+  function insertItemWithCallbacks(newItem, onInsertCallback, options) {
     options.beforeInsert(newItem, function() {
-      removeNone(options);
-      options.container.append(newItem);
+      if(onInsertCallback) {
+        onInsertCallback(item);
+      }
+      insertItem(newItem, options);
     });
     options.afterInsert(newItem);
     
