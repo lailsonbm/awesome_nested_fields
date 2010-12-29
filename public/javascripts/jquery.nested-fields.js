@@ -47,8 +47,9 @@
       return $this;
     },
     
-    insert: function(callback) {
-      var options = getOptions(this);
+    insert: function(callback, options) {
+      options = $.extend({}, getOptions(this), options);
+      
       var newItem = prepareTemplate(options);
       insertItemWithCallbacks(newItem, callback, options);
     },
@@ -109,14 +110,23 @@
     options.container.append(newItem);
   }
   
-  function insertItemWithCallbacks(newItem, onInsertCallback, options) {
-    options.beforeInsert(newItem, function() {
+  function insertItemWithCallbacks(newItem, onInsertCallback, options) {  
+    function insert() {
       if(onInsertCallback) {
-        onInsertCallback(item);
+        onInsertCallback(newItem);
       }
       insertItem(newItem, options);
-    });
-    options.afterInsert(newItem);
+    }
+    
+    if(!options.skipBefore) {
+      options.beforeInsert(newItem, insert);
+    } else {
+      insert();
+    }
+    
+    if(!options.skipAfter) {
+      options.afterInsert(newItem);
+    }
     
     return newItem;
   }
