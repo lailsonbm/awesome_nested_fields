@@ -47,7 +47,7 @@
       return $this;
     },
     
-    add: function() {
+    insert: function() {
       var options = getOptions(this);
       var newItem = prepareTemplate(options);
       return insertItem(newItem, options);
