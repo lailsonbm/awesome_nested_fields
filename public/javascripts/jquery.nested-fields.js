@@ -48,14 +48,22 @@
     },
     
     insert: function(callback, options) {
+      var newItem = prepareTemplate(options);
       options = $.extend({}, getOptions(this), options);
       
-      var newItem = prepareTemplate(options);
       insertItemWithCallbacks(newItem, callback, options);
     },
     
-    remove: function(element) {
-      return removeItem(element, getOptions(this));
+    remove: function(element, options) {
+      options = $.extend({}, getOptions(this), options);
+      return removeItem(element, options);
+    },
+    
+    removeAll: function(options) {
+      options = $.extend({}, getOptions(this), options);
+      $(methods.items.apply(this)).each(function(i, el) {
+        methods.remove(el, options);
+      });
     },
     
     items: function() {
@@ -132,17 +140,27 @@
   }
   
   function removeItem(element, options) {
-    var $element = $(element);
-    options.beforeRemove($element, function() {
+    function remove() {
       if($element.attr('data-new-record')) { // record is new
         $element.remove();
       } else { // record should be marked and sent to server
-        $element.find('INPUT[name*=_destroy]').val('true');
+        $element.find("INPUT[name$='[_destroy]']").val('true');
         $element.hide();
       }
       insertNone(options);
-    });
-    options.afterRemove($element);
+    }
+    
+    var $element = $(element);
+    if(!options.skipBefore) {
+      options.beforeRemove($element, remove);
+    } else {
+      remove();
+    }
+    
+    if(!options.skipAfter) {
+      options.afterRemove($element);
+    }
+    
     return $element;
   }
   
