@@ -48,8 +48,8 @@
     },
     
     insert: function(callback, options) {
-      var newItem = prepareTemplate(options);
       options = $.extend({}, getOptions(this), options);
+      var newItem = prepareTemplate(options);
       
       insertItemWithCallbacks(newItem, callback, options);
     },
