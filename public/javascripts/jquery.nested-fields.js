@@ -167,7 +167,10 @@
   function bindRemoveEvent(item, options) {
     $(item).find(options.removeHandler).bind('click.nested-fields', function(e) {
       e.preventDefault();
-      removeItem(item, options);
+      var confirmation = $(this).attr('data-confirm');
+      if(!confirmation || (confirmation && confirm(confirmation))) {
+        removeItem(item, options);
+      }
     });
   }
   
