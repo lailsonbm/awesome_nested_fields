@@ -166,21 +166,12 @@
   
   function bindRemoveEvent(item, options) {
     var removeHandler = $(item).find(options.removeHandler);
-    var confirmationMessage = removeHandler.attr('data-confirm');
+    var needsConfirmation = removeHandler.attr('data-confirm');
     
-    if(confirmationMessage) {
-      removeHandler.bind('confirm.nested-fields', function(e) {
-        if(confirm(confirmationMessage)) {
-          removeItem(item, options);
-        }
-        return false;
-      });
-    } else {
-      removeHandler.bind('click.nested-fields', function(e) {
-        e.preventDefault();
-        removeItem(item, options);
-      });
-    }
+    var event = needsConfirmation ? 'confirmed' : 'click';
+    removeHandler.bind(event + '.nested-fields', function(e) {
+      removeItem(item, options);
+    });
   }
   
   function insertNone(options) {
