@@ -165,13 +165,22 @@
   }
   
   function bindRemoveEvent(item, options) {
-    $(item).find(options.removeHandler).bind('click.nested-fields', function(e) {
-      e.preventDefault();
-      var confirmation = $(this).attr('data-confirm');
-      if(!confirmation || (confirmation && confirm(confirmation))) {
+    var removeHandler = $(item).find(options.removeHandler);
+    var confirmationMessage = removeHandler.attr('data-confirm');
+    
+    if(confirmationMessage) {
+      removeHandler.bind('confirm.nested-fields', function(e) {
+        if(confirm(confirmationMessage)) {
+          removeItem(item, options);
+        }
+        return false;
+      });
+    } else {
+      removeHandler.bind('click.nested-fields', function(e) {
+        e.preventDefault();
         removeItem(item, options);
-      }
-    });
+      });
+    }
   }
   
   function insertNone(options) {
