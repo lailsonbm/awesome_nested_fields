@@ -38,7 +38,7 @@ protected
   def nested_fields_process_default_options(options, builder, association)
     options[:new_object] ||= builder.object.class.reflect_on_association(association).klass.new
     options[:partial] ||= association.to_s.singularize
-    options[:builder_local] ||= :builder
+    options[:builder_local] ||= :f
     options[:item_template_class] ||= 'template item'
     options[:none_template_class] ||= 'template none'
     options
