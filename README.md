@@ -7,23 +7,25 @@ In Rails, you can create forms that have fields from nested models. For example,
 Installation
 ------------
 
-1. Add this line to your Gemfile:
+1. Add the gem to your Gemfile.
 
         gem 'awesome_nested_fields'
+
+2. Run bundler to make sure the gem gets installed.
+
+        bundle install
     
-2. Include the `jquery.nested-fields.js` file to your template (or to the pages that will use nested fields):
+3. Include the `jquery.nested-fields.js` file in your template (or in the pages that will use nested fields).
     
         <script src="/javascripts/jquery.nested-fields.js" type="text/javascript"></script>
 
-3. Now you're ready to rock with nested models.
-    
-Don't forget to include the file _after_ you've included jQuery. And don't worry because this file isn't on the public folder: it comes bundled into the gem.
+Now you're ready to rock with nested models. Don't forget to include the javascript file _after_ you've included jQuery. And don't worry because this file isn't on the public folder: it comes bundled into the gem.
 
 
 Compatibility
 -------------
 
-awesome_nested_fields works only with Rails 3 and was tested with jQuery 1.5.
+awesome_nested_fields works only with Rails 3 and was tested with jQuery 1.5.0.
 
 
 
