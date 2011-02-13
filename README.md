@@ -45,7 +45,7 @@ Proceeding with the person/phones example, we can have a form like this:
           <% # person fields... %>
 
           <h2>Phones</h2>
-          <div id="container">
+          <div class="container">
             <%= nested_fields(f, :phones) %>
           </div>
           <a href="#" class="add">add phone</a>
