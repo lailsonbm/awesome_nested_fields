@@ -8,7 +8,7 @@ module AwesomeNestedFieldsHelper
     end
 
     if options[:none_partial] and builder.object.send(association).empty?
-      items << render(options[:none_partial], options[:builder_local] => f)
+      items << render(options[:none_partial])
     end
 
     items.html_safe
