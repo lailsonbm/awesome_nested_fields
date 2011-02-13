@@ -87,4 +87,11 @@ Compatibility
 awesome_nested_fields works only with Rails 3 and was tested with jQuery 1.5.0.
 
 
+TODO
+----
 
+* Write tests
+* Write awesome demos
+* Make sure it can degrade gracefully
+* Return and API object on JS to make interaction easier
+* Port JavaScript code to CoffeeScript
