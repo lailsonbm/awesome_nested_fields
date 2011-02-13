@@ -10,8 +10,8 @@
     container: '.container',
     item: '.item',
     none: '.none',
-    addHandler: '.add',
-    removeHandler: '.remove',
+    add: '.add',
+    remove: '.remove',
     newItemIndex: 'new_nested_item'
   };
   
@@ -31,10 +31,10 @@
       options.itemTemplate = $(options.itemTemplate, $this);
       options.noneTemplate = $(options.noneTemplate, $this);
       options.container = $(options.container, $this);
-      options.addHandler = $(options.addHandler, $this);
+      options.add = $(options.add, $this);
       $this.data('nested-fields.options', options); 
       
-      options.addHandler.bind('click.nested-fields', function(e) {
+      options.add.bind('click.nested-fields', function(e) {
         e.preventDefault();
         var newItem = prepareTemplate(options);
         insertItemWithCallbacks(newItem, null, options);
@@ -165,7 +165,7 @@
   }
   
   function bindRemoveEvent(item, options) {
-    var removeHandler = $(item).find(options.removeHandler);
+    var removeHandler = $(item).find(options.remove);
     var needsConfirmation = removeHandler.attr('data-confirm');
     
     var event = needsConfirmation ? 'confirmed' : 'click';
