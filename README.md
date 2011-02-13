@@ -95,3 +95,8 @@ TODO
 * Make sure it can degrade gracefully
 * Return and API object on JS to make interaction easier
 * Port JavaScript code to CoffeeScript
+
+
+Copyleft
+--------
+Copyleft (c) 2011 Lailson Bandeira (http://lailsonbandeira.com/). See LICENSE for details.
