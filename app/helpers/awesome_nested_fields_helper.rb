@@ -18,14 +18,14 @@ module AwesomeNestedFieldsHelper
     options = nested_fields_process_default_options(options, builder, association)
 
     templates = content_tag(:script, type: 'text/html', class: options[:item_template_class]) do
-      builder.fields_for(association, options[:new_object], child_index: 'new_nested_item') do |f|
+      builder.fields_for(association, options[:new_object], child_index: options[:new_item_index]) do |f|
         render(options[:partial], options[:builder_local] => f)
       end
     end
 
     if options[:none_partial]
       templates << content_tag(:script, type: 'text/html', class: options[:none_template_class]) do
-        builder.fields_for(association, options[:new_object], child_index: 'new_nested_item') do |f|
+        builder.fields_for(association, options[:new_object], child_index: options[:new_item_index]) do |f|
           render(options[:none_partial], options[:builder_local] => f)
         end
       end
@@ -41,6 +41,7 @@ protected
     options[:builder_local] ||= :f
     options[:item_template_class] ||= 'template item'
     options[:none_template_class] ||= 'template none'
+    options[:new_item_index] ||= 'new_nested_item'
     options
   end
 end
