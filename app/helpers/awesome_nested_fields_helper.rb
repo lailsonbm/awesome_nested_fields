@@ -1,4 +1,10 @@
 module AwesomeNestedFieldsHelper
+  
+  def nested_fields(builder, association, options={})
+    nested_fields_items(builder, association, options) <<
+      nested_fields_template(builder, association, options)
+  end
+  
   def nested_fields_items(builder, association, options={})
     options = nested_fields_process_default_options(options, builder, association)
 
