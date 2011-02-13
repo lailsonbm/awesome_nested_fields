@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @person.name %>
+</p>
+
+<h2>Phones</h2>
+<table border="1">
+  <tr>
+    <th>Where</th>
+    <th>Number</th>
+  </tr>
+  <% for phone in @person.phones %>
+    <tr>
+      <td><%= phone.where.humanize %></td>
+      <td><%= phone.number %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>
