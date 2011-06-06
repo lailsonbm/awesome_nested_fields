@@ -168,9 +168,12 @@
     var removeHandler = $(item).find(options.remove);
     var needsConfirmation = removeHandler.attr('data-confirm');
     
-    var event = needsConfirmation ? 'confirmed' : 'click';
-    removeHandler.bind(event + '.nested-fields', function(e) {
-      removeItem(item, options);
+    var event = needsConfirmation ? 'confirm:complete' : 'click';
+    removeHandler.bind(event + '.nested-fields', function(e, confirmed) {
+      e.preventDefault();
+      if(confirmed === undefined || confirmed === true) {
+        removeItem(item, options);
+      }
     });
   }
   
