@@ -178,7 +178,7 @@
   }
   
   function insertNone(options) {
-    if(findItems(options).length == 0) {
+    if(findItems(options).length === 0) {
       options.container.append(options.noneTemplate.html());
     }
   }
