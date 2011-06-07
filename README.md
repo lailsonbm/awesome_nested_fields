@@ -95,6 +95,7 @@ TODO
 * Make sure it can degrade gracefully
 * Return and API object on JS to make interaction easier
 * Port JavaScript code to CoffeeScript
+* Make `nested_fields` call compatible with Rails `fields_for`
 
 
 Copyleft
