@@ -1,5 +1,13 @@
 (function($) {
-  
+  /**
+   *
+   * Awesome Nested Fields
+   *
+   * Requires jquery-ujs adapter.
+   * https://github.com/lailsonbm/awesome_nested_fields
+   *
+   */
+   
   var defaultSettings = {
     beforeInsert: function(item, callback) { callback() },
     afterInsert: function(item) {},

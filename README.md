@@ -7,19 +7,34 @@ In Rails, you can create forms that have fields from nested models. For example,
 Installation
 ------------
 
-1. Add the gem to your Gemfile.
+### Rails 3.1
+
+1. Add the gem to your Gemfile and run `bundle install` to make sure the gem gets installed.
 
         gem 'awesome_nested_fields'
 
-2. Run bundler to make sure the gem gets installed.
+2. Add this line to `app/assets/javascripts/application.js` (or where you prefer) so the javascript dependency is added to the asset pipeline. Be sure to include this line after jQuery and jQuery UJS Adapter.
 
-        bundle install
-    
-3. Include the `jquery.nested-fields.js` file in your template (or in the pages that will use nested fields).
-    
+        //= require jquery.nested-fields
+
+3. Rock with your _awesome_ nested models.
+
+
+### Rails 3.0
+
+1. Add the gem to your Gemfile and run `bundle install` to make sure the gem gets installed. Be sure to include it after `jquery-rails` so the javascript files are added in the correct order at the templates.
+
+        gem 'awesome_nested_fields'
+
+2. Copy the javascript dependency to `public\javascripts` by using the generator.
+
+        rails generate awesome_nested_fields:install
+
+3. (Optional) The javascript dependency will be added automatically to the defaults javascript files. If you don't use `javascript_include_tag :defaults` in your templates for some reason, require the file manually.
+
         <script src="/javascripts/jquery.nested-fields.js" type="text/javascript"></script>
 
-Now you're ready to rock with nested models. Don't forget to include the javascript file _after_ you've included jQuery. And don't worry because this file isn't on the public folder: it comes bundled into the gem.
+4. Now you're ready to rock with your _awesome_ nested models. It will be so fun as in Rails 3.1, I promise.
 
 
 Basic Usage
@@ -84,7 +99,7 @@ Now enjoy your new nested model form!
 Compatibility
 -------------
 
-awesome_nested_fields works only with Rails 3 and was tested with jQuery 1.5.0.
+awesome_nested_fields works only with Rails 3.0 and Rails 3.1. Sorry, Rails 2.x users.
 
 
 TODO

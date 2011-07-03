@@ -1,11 +1,9 @@
 module AwesomeNestedFields
-  class Engine < Rails::Engine
-    initializer 'awesome_nested_fields.add_middleware' do |app|
-      app.middleware.use ActionDispatch::Static, "#{root}/public"
-    end
-
-    config.to_prepare do
-      ApplicationController.helper(AwesomeNestedFieldsHelper)
-    end
+  if ::Rails.version < '3.1'
+    require 'awesome_nested_fields/railtie'
+  else
+    require 'awesome_nested_fields/engine'
   end
+  
+  require 'awesome_nested_fields/version'
 end
