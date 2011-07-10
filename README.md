@@ -44,10 +44,10 @@ Basic Usage
 
 First, make sure the object that has the `has_many` or `has_and_belongs_to_many` relation accepts nested attributes for the collection you want. For example, if a person _has_many_ phones, we'll have a model like this:
 
-        class Person < ActiveRecord::Base
-          has_many :phones
-          accepts_nested_attributes_for :phones, allow_destroy: true
-        end
+    class Person < ActiveRecord::Base
+      has_many :phones
+      accepts_nested_attributes_for :phones, allow_destroy: true
+    end
 
 The `accepts_nested_attributes_for` is a method from Active Record that allows you to pass attributes of nested models directly to its parent, instead of instantiate each child object separately. In this case, `Person` gains a method called `phones_attributes=`, that accepts data for new and existing phones of a given person. The `allow_destroy` option enables us to also delete child objects. To know more about nested attributes, check out the [ActiveRecord::NestedAttribute](https://github.com/rails/rails/blob/master/activerecord/lib/active_record/nested_attributes.rb#L1) class.
 
@@ -55,27 +55,27 @@ The `accepts_nested_attributes_for` is a method from Active Record that allows y
 
 The next step is set up the form view with the `nested_fields_for` method. It receives the association/collection name, an optional hash of options (humm, a pun) and a block with the nested fields. Proceeding with the person/phones example, we can have a form like this:
 
-        <%= form_for(@person) do |f| %>
-          <% # person fields... %>
-          
-          <h2>Phones</h2>
-          <div class="container">
-            <%= f.nested_fields_for :phones do |f| %>
-              <fieldset class="item">
-                <%= f.label :number %>
-                <%= f.text_field :number %>
-                
-                <a href="#" class="remove">remove</a>
-                
-                <%= f.hidden_field :id %>
-                <%= f.hidden_field :_destroy %>
-              </fieldset>
-            <% end %>
-          </div>
-          <a href="#" class="add">add phone</a>
-          
-          <% # more person fields... %>
+    <%= form_for(@person) do |f| %>
+      <% # person fields... %>
+      
+      <h2>Phones</h2>
+      <div class="container">
+        <%= f.nested_fields_for :phones do |f| %>
+          <fieldset class="item">
+            <%= f.label :number %>
+            <%= f.text_field :number %>
+            
+            <a href="#" class="remove">remove</a>
+            
+            <%= f.hidden_field :id %>
+            <%= f.hidden_field :_destroy %>
+          </fieldset>
         <% end %>
+      </div>
+      <a href="#" class="add">add phone</a>
+      
+      <% # more person fields... %>
+    <% end %>
 
 The `nested_fields_for` method lists the phones this person has and also adds an empty template to the page for creating new phones. (Actually, there is too much code inside the block. If you're not working with a simple example like this you better extract this code into a partial and call just `render :phones` inside the block. Good coding practices, you know.)
 
@@ -85,9 +85,9 @@ If you're paying attention, you noticed the key elements are marked with special
 
 This is the easiest part: just activate the nested fields actions when the page loads. We can put this in the `application.js` file (or in any other place that gets executed in the page):
 
-        $(document).ready(function(e) {
-          $('FORM').nestedFields();
-        });
+    $(document).ready(function(e) {
+      $('FORM').nestedFields();
+    });
 
 Now enjoy your new nested model form!
 
@@ -104,13 +104,13 @@ There are some view options, but most are internal. There is just one you really
 Sometimes you want to show something when the collection is empty. Just set `show_empty` to `true` and prepare the block to receive `nil` when the collection is empty. Awesome nested fields will take care to show the empty message when there are no elements and remove it when one is added.
 To implement this on the basic example, do something like:
 
-        <%= f.nested_fields_for :phones, show_empty: true do |f| %>
-          <% if f %>
-            <% fields code... %>
-          <% else %>
-            <p class="empty">There are no phones.</p>
-          <% end %>
-        <% end %>
+    <%= f.nested_fields_for :phones, show_empty: true do |f| %>
+      <% if f %>
+        <% fields code... %>
+      <% else %>
+        <p class="empty">There are no phones.</p>
+      <% end %>
+    <% end %>
 
 And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
 
