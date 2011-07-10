@@ -13,13 +13,13 @@
     afterInsert: function(item) {},
     beforeRemove: function(item, callback) { callback() },
     afterRemove: function(item) {},
-    itemTemplate: '.item.template',
-    noneTemplate: '.none.template',
-    container: '.container',
-    item: '.item',
-    none: '.none',
-    add: '.add',
-    remove: '.remove',
+    itemTemplateSelector: '.item.template',
+    emptyTemplateSelector: '.empty.template',
+    containerSelector: '.container',
+    itemSelector: '.item',
+    emptySelector: '.empty',
+    addSelector: '.add',
+    removeSelector: '.remove',
     newItemIndex: 'new_nested_item'
   };
   
@@ -36,10 +36,10 @@
       }
       
       options = $.extend({}, defaultSettings, options);
-      options.itemTemplate = $(options.itemTemplate, $this);
-      options.noneTemplate = $(options.noneTemplate, $this);
-      options.container = $(options.container, $this);
-      options.add = $(options.add, $this);
+      options.itemTemplate = $(options.itemTemplateSelector, $this);
+      options.emptyTemplate = $(options.emptyTemplateSelector, $this);
+      options.container = $(options.containerSelector, $this);
+      options.add = $(options.addSelector, $this);
       $this.data('nested-fields.options', options); 
       
       options.add.bind('click.nested-fields', function(e) {
@@ -48,7 +48,7 @@
         insertItemWithCallbacks(newItem, null, options);
       });
       
-      $(options.item, options.container).each(function(i, item) {
+      $(options.itemSelector, options.containerSelector).each(function(i, item) {
         bindRemoveEvent(item, options);
       });
       
@@ -122,7 +122,7 @@
   }
   
   function insertItem(newItem, options) {
-    removeNone(options);
+    removeEmpty(options);
     options.container.append(newItem);
   }
   
@@ -173,7 +173,7 @@
   }
   
   function bindRemoveEvent(item, options) {
-    var removeHandler = $(item).find(options.remove);
+    var removeHandler = $(item).find(options.removeSelector);
     var needsConfirmation = removeHandler.attr('data-confirm');
     
     var event = needsConfirmation ? 'confirm:complete' : 'click';
@@ -187,20 +187,20 @@
   
   function insertNone(options) {
     if(findItems(options).length === 0) {
-      options.container.append(options.noneTemplate.html());
+      options.container.append(options.emptyTemplate.html());
     }
   }
   
-  function removeNone(options) {
-    findNone(options).remove();
+  function removeEmpty(options) {
+    findEmpty(options).remove();
   }
   
   function findItems(options) {
-    return options.container.find(options.item + ':visible');
+    return options.container.find(options.itemSelector + ':visible');
   }
   
-  function findNone(options) {
-    return options.container.find(options.none);
+  function findEmpty(options) {
+    return options.container.find(options.emptySelector);
   }
   
 })(jQuery);
