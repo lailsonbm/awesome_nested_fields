@@ -7,3 +7,5 @@ module AwesomeNestedFields
   
   require 'awesome_nested_fields/version'
 end
+
+require 'rails/form_helper'
