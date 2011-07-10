@@ -140,8 +140,11 @@
       options.container.append(newItem);
     }
     
-    if(!options.skipBefore) {
+    if(!options.skipBefore) {      
       options.beforeInsert(newItem, insert);
+      if(options.beforeInsert.length <= 1) {
+        insert();
+      }
     } else {
       insert();
     }
@@ -173,6 +176,9 @@
     var $element = $(element);
     if(!options.skipBefore) {
       options.beforeRemove($element, remove);
+      if(options.beforeRemove.length <= 1) {
+        insert();
+      }
     } else {
       remove();
     }
