@@ -53,37 +53,33 @@ The `accepts_nested_attributes_for` is a method from Active Record that allows y
 
 ### View
 
-The next step is set up the form view using the `nested_fields` helper method. It receives three parameters: the parent form builder, the association name and an optional hash of options (humm, a pun).
-Proceeding with the person/phones example, we can have a form like this:
+The next step is set up the form view with the `nested_fields_for` method. It receives the association/collection name, an optional hash of options (humm, a pun) and a block with the nested fields. Proceeding with the person/phones example, we can have a form like this:
 
         <%= form_for(@person) do |f| %>
           <% # person fields... %>
 
           <h2>Phones</h2>
           <div class="container">
-            <%= nested_fields(f, :phones) %>
+            <%= f.nested_fields_for :phones do |f| %>
+              <fieldset class="item">
+                <%= f.label :number %>
+                <%= f.text_field :number %>
+
+                <a href="#" class="remove">remove</a>
+
+                <%= f.hidden_field :id %>
+                <%= f.hidden_field :_destroy %>
+              </fieldset>
+            <% end %>
           </div>
           <a href="#" class="add">add phone</a>
 
           <% # more person fields... %>
         <% end %>
 
-The `nested_fields` helper lists the phones this person has and also adds an empty template to the page for creating new phones. But where is the phone form? Well, awesome_nested_fields expects a partial with the association name in the singular (after all, the partial represents a single child object). In this case, it looks for the partial `phone` (we can change this name later). So, in the file `_phone.html.erb`, we can have:
+The `nested_fields` helper lists the phones this person has and also adds an empty template to the page for creating new phones. (Actually, there is too much code inside the block. If you're not working with a simple example like this you better extract this code into a partial and call just `render :phones` inside the block. Good coding practices, you know.)
 
-        <fieldset class="item">
-          <%= f.label :where %>
-          <%= f.text_field :where %><br/>
-            
-          <%= f.label :number %>
-          <%= f.text_field :number %>
-
-          <a href="#" class="remove">remove</a>
-          
-          <%= f.hidden_field :id %>
-          <%= f.hidden_field :_destroy %>
-        </fieldset>
-
-If you're paying attention, you noticed the key elements are marked with a special class name. We need this for the javascript code, so it knows what to do with each HTML element: the one that have the children must have the class `container`; each child must be marked with the class `item`; inside an item, the link for removal must have the class `remove`; and the link to add new items must have the class `add`. We can change the names later, but these are the default choices. Finally, don't forget to add the `id` field, as it is needed by AR to identify if this is an existing or a new element, and the `_destroy` field  to activate deletion when the user clicks on the remove link.
+If you're paying attention, you noticed the key elements are marked with special class names. We need this for the javascript code, so it knows what to do with each HTML element: the one that have the children must have the class `container`; each child must be marked with the class `item`; inside an item, the link for removal must have the class `remove`; and the link to add new items must have the class `add`. We can change the names later, but these are the default choices. Finally, don't forget to add the `id` field, as it is needed by AR to identify whether this is an existing or a new element, and the `_destroy` field  to activate deletion when the user clicks on the remove link.
 
 ### Javascript
 
@@ -109,7 +105,6 @@ TODO
 * Write awesome demos
 * Make sure it can degrade gracefully
 * Return and API object on JS to make interaction easier
-* Make `nested_fields` call compatible with Rails `fields_for`
 
 
 Copyleft
