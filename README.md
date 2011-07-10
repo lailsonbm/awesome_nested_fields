@@ -104,7 +104,7 @@ There are some view options, but most are internal. There is just one you really
 Sometimes you want to show something when the collection is empty. Just set `show_empty` to `true` and prepare the block to receive `nil` when the collection is empty. Awesome nested fields will take care to show the empty message when there are no elements and remove it when one is added.
 To implement this on the basic example, do something like:
 
-        <%= f.nested_fields_for :phones do |f| %>
+        <%= f.nested_fields_for :phones, show_empty: true do |f| %>
           <% if f %>
             <% fields code... %>
           <% else %>
@@ -113,6 +113,25 @@ To implement this on the basic example, do something like:
         <% end %>
 
 And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
+
+### Javascript Options
+
+#### Selectors
+
+To make nested fields work dynamically, the JS code needs to know what elements to use. By default, this is made by marking key elements with CSS classes, but you can use other selectors (any valid jQuery selector will do). The available options are shown below.
+
+* `itemSelector` marks each item from the collection (`.item` by default)
+* `containerSelector` marks the element that contains the items (`.container` by default)
+* `addSelector` marks the element that will add a new item to the container when clicked (`.add` by default)
+* `removeSelector` marks the element inside an item that will remove it when clicked (`.remove` by default)
+* `emptySelector` marks the element that is shown when there are no items (`.empty` by default)
+
+For example, if you are using nested fields inside a table, you can do:
+
+    element.nestedFields({
+      containerSelector: 'tbody',
+      itemSelector: 'tr'
+    });
 
 
 Compatibility
