@@ -26,7 +26,7 @@ Installation
 
         gem 'awesome_nested_fields'
 
-2. Copy the javascript dependency to `public\javascripts` by using the generator.
+2. Copy the javascript dependency to `public/javascripts` by using the generator.
 
         rails generate awesome_nested_fields:install
 
@@ -131,6 +131,21 @@ For example, if you are using nested fields inside a table, you can do:
     element.nestedFields({
       containerSelector: 'tbody',
       itemSelector: 'tr'
+    });
+    
+
+#### Callbacks
+
+You can execute actions before or after items get inserted or removed. For this, there are four callbacks available: `beforeInsert`, `afterInsert`, `beforeRemove` and `afterRemove`. All of them receive the item as the first parameter, so you can query or modify it before the operation. The before callbacks also receive a function to perform the actual insertion or removal of the element, so you can perform async operations (ajax, of course!) or choose to not insert or remove the element. Ok, we need an example.
+
+    element.nestedFields({
+      beforeInsert: function(item, insert) {
+        item.css('color', 'red'); // Make some operation
+        insert(); // The function must be called to insert the element
+      },
+      afterRemove: function(item) {
+        console.log(item + ' was removed.');
+      }
     });
 
 
