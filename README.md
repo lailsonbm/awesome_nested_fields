@@ -105,13 +105,11 @@ Sometimes you want to show something when the collection is empty. Just set `sho
 To implement this on the basic example, do something like:
 
         <%= f.nested_fields_for :phones do |f| %>
-          <fieldset class="item">
-            <% if f %>
-              <% fields code... %>
-            <% else %>
-              <p class="empty">There are no phones.</p>
-            <% end %>
-          </fieldset>
+          <% if f %>
+            <% fields code... %>
+          <% else %>
+            <p class="empty">There are no phones.</p>
+          <% end %>
         <% end %>
 
 And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
