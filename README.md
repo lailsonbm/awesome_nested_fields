@@ -136,15 +136,25 @@ For example, if you are using nested fields inside a table, you can do:
 
 #### Callbacks
 
-You can execute actions before or after items get inserted or removed. For this, there are four callbacks available: `beforeInsert`, `afterInsert`, `beforeRemove` and `afterRemove`. All of them receive the item as the first parameter, so you can query or modify it before the operation. The before callbacks also receive a function to perform the actual insertion or removal of the element, so you can perform async operations (ajax, of course!) or choose to not insert or remove the element. Ok, we need an example.
+Actions can be executed before or after items get inserted or removed. There are four callbacks available: `beforeInsert`, `afterInsert`, `beforeRemove` and `afterRemove`. All of them receive the item as the first parameter, so you can query or modify it before the operation.
 
     element.nestedFields({
-      beforeInsert: function(item, insert) {
+      beforeInsert: function(item) {
         item.css('color', 'red'); // Make some operation
-        insert(); // The function must be called to insert the element
+        console.log(item + ' will be inserted.')
       },
       afterRemove: function(item) {
         console.log(item + ' was removed.');
+      }
+    });
+    
+The before callbacks also allow you to control when the element will be inserted or removed, so you can perform async operations (ajax, of course!) or choose to not insert or remove the element at all if some condition is not met. Just receive a second parameter as the handler function.
+    
+    element.nestedFields({
+      beforeInsert: function(item, insert) {
+        $.get('/ajax_function', function() {
+          insert();
+        });
       }
     });
 
