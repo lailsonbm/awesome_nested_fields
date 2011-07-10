@@ -26,7 +26,7 @@ private
     end
     
     if options[:show_empty]
-      templates.safe_concat @template.content_tag(:script, type: 'text/html', class: options[:none_template_class], &block)
+      templates.safe_concat @template.content_tag(:script, type: 'text/html', class: options[:empty_template_class], &block)
     end
     
     templates
