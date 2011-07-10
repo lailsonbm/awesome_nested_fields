@@ -57,23 +57,23 @@ The next step is set up the form view with the `nested_fields_for` method. It re
 
         <%= form_for(@person) do |f| %>
           <% # person fields... %>
-
+          
           <h2>Phones</h2>
           <div class="container">
             <%= f.nested_fields_for :phones do |f| %>
               <fieldset class="item">
                 <%= f.label :number %>
                 <%= f.text_field :number %>
-
+                
                 <a href="#" class="remove">remove</a>
-
+                
                 <%= f.hidden_field :id %>
                 <%= f.hidden_field :_destroy %>
               </fieldset>
             <% end %>
           </div>
           <a href="#" class="add">add phone</a>
-
+          
           <% # more person fields... %>
         <% end %>
 
@@ -90,6 +90,31 @@ This is the easiest part: just activate the nested fields actions when the page 
         });
 
 Now enjoy your new nested model form!
+
+
+Reference
+---------
+
+### View Options
+
+There are some view options, but most are internal. There is just one you really need to know about; for the others, go to the code.
+
+#### show_empty
+
+Sometimes you want to show something when the collection is empty. Just set `show_empty` to `true` and prepare the block to receive `nil` when the collection is empty. Awesome nested fields will take care to show the empty message when there are no elements and remove it when one is added.
+To implement this on the basic example, do something like:
+
+        <%= f.nested_fields_for :phones do |f| %>
+          <fieldset class="item">
+            <% if f %>
+              <% fields code... %>
+            <% else %>
+              <p class="empty">There are no phones.</p>
+            <% end %>
+          </fieldset>
+        <% end %>
+
+And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
 
 
 Compatibility
