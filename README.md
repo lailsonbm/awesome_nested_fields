@@ -124,7 +124,7 @@ To make nested fields work dynamically, the JS code needs to know what elements 
 * `containerSelector` marks the element that contains the items (`.container` by default)
 * `addSelector` marks the element that will add a new item to the container when clicked (`.add` by default)
 * `removeSelector` marks the element inside an item that will remove it when clicked (`.remove` by default)
-* `emptySelector` marks the element that is shown when there are no items (`.empty` by default)
+* `emptySelector` marks the element that is shown when there are no items; used in conjunction with `show_empty` option (`.empty` by default)
 
 For example, if you are using nested fields inside a table, you can do:
 
