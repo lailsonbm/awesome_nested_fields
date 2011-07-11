@@ -190,6 +190,8 @@ TODO
 * Write tests
 * Write awesome demos
 * Make sure it can degrade gracefully
+* Implement jQuery autoload
+* Make `nested_fields_for` works without a block (looking for partials)
 
 
 Copyleft
