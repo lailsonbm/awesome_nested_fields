@@ -162,7 +162,7 @@ The before callbacks also allow you to control when the element will be inserted
 Compatibility
 -------------
 
-awesome_nested_fields works only with Rails 3.0 and Rails 3.1. Sorry, Rails 2.x users.
+awesome_nested_fields works only with jQuery and Rails 3.x. Sorry, Rails 2.x users.
 
 
 TODO
