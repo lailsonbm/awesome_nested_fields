@@ -190,7 +190,6 @@ TODO
 * Write tests
 * Write awesome demos
 * Make sure it can degrade gracefully
-* Return and API object on JS to make interaction easier
 
 
 Copyleft
