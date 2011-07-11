@@ -178,6 +178,13 @@ The code above inserts a new item and does not execute the `beforeInsert` callba
 These methods can be called from the element where nested fields are applied (e.g. a form) or from any element inside it (e.g. an input or the container itself).
 
 
+Demo
+----
+
+There is a live demo at http://phonebook.guava.com.br/.  
+You can find the demo code at https://github.com/lailsonbm/awesome_nested_fields_demo.
+
+
 Compatibility
 -------------
 
@@ -188,7 +195,6 @@ TODO
 ----
 
 * Write tests
-* Write awesome demos
 * Make sure it can degrade gracefully
 * Implement jQuery autoload
 * Make `nested_fields_for` works without a block (looking for partials)
