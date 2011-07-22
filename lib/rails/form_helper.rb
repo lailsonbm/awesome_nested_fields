@@ -4,8 +4,8 @@ ActionView::Helpers::FormBuilder.class_eval do
     
     options[:new_item_index] ||= 'new_nested_item'
     options[:new_object] ||= self.object.class.reflect_on_association(association).klass.new
-    options[:item_template_class] ||= 'template item'
-    options[:empty_template_class] ||= 'template empty'
+    options[:item_template_class] ||= ['template', 'item', association.to_s.singularize].join(' ')
+    options[:empty_template_class] ||= ['template', 'empty', association.to_s.singularize].join(' ')
     options[:show_empty] ||= false
     
     output = @template.capture { fields_for(association, &block) }
