@@ -1,4 +1,5 @@
 ActionView::Helpers::FormBuilder.class_eval do
+  
   def nested_fields_for(association, options={}, &block)
     raise ArgumentError, 'Missing block to nested_fields_for' unless block_given?
     
@@ -7,6 +8,7 @@ ActionView::Helpers::FormBuilder.class_eval do
     options[:item_template_class] ||= ['template', 'item', association.to_s.singularize].join(' ')
     options[:empty_template_class] ||= ['template', 'empty', association.to_s.singularize].join(' ')
     options[:show_empty] ||= false
+    options[:render_template] = options.key?(:render_template) ? options[:render_template] : true
     
     output = @template.capture { fields_for(association, &block) }
     
@@ -14,13 +16,19 @@ ActionView::Helpers::FormBuilder.class_eval do
       output.safe_concat @template.capture { yield nil } 
     end
     
-    output.safe_concat nested_fields_templates(association, options, &block)
+    template = render_nested_fields_template(association, options, &block)
+    if options[:render_template]
+      output.safe_concat template
+    else
+      add_nested_fields_template(association, template)
+    end
     
     output
   end
 
-private
-  def nested_fields_templates(association, options, &block)
+protected
+  
+  def render_nested_fields_template(association, options, &block)
     templates = @template.content_tag(:script, type: 'text/html', class: options[:item_template_class]) do
       fields_for(association, options[:new_object], child_index: options[:new_item_index], &block)
     end
@@ -31,4 +39,21 @@ private
     
     templates
   end
+  
+  def add_nested_fields_template(association, template)
+    # It must be a hash, so we don't get repeated templates on deeply nested models
+    @template.instance_variable_set(:@nested_fields_template_cache, {}) unless @template.instance_variable_get(:@nested_fields_template_cache)
+    @template.instance_variable_get(:@nested_fields_template_cache)[association] = template
+    create_nested_fields_template_helper!
+  end
+  
+  def create_nested_fields_template_helper!
+    def @template.nested_fields_templates
+      @nested_fields_template_cache.reduce(ActiveSupport::SafeBuffer.new) do |buffer, entry|
+        association, template = entry
+        buffer.safe_concat template
+      end
+    end unless @template.respond_to?(:nested_fields_templates)
+  end
+  
 end
