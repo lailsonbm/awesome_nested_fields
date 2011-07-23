@@ -26,26 +26,26 @@
   // PUBLIC API
   var methods = {
     init: function(options) {
-      var $this = $(this);
-      if($(this).data('nested-fields.options')) {
-        console.log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
-        return $this;
-      } else if(getOptions($this)) {
-        console.log('You cannot nest nested fields. Who would say that, uh?');
-        return $this;
-      }
-      
-      options = $.extend({}, defaultSettings, options);
-      options.itemTemplate = $(options.itemTemplateSelector, $this);
-      options.emptyTemplate = $(options.emptyTemplateSelector, $this);
-      options.container = $(options.containerSelector, $this);
-      options.add = $(options.addSelector, $this);
-      $this.data('nested-fields.options', options); 
-      
-      bindInsertToAdd(options);
-      bindRemoveToItems(options);
-      
-      return $this;
+      return this.each(function() {        
+        var $this = $(this);
+        if($(this).data('nested-fields.options')) {
+          console.log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
+          return $this;
+        } else if(getOptions($this)) {
+          console.log('You cannot nest nested fields. Who would say that, uh?');
+          return $this;
+        }
+
+        options = $.extend({}, defaultSettings, options);
+        options.itemTemplate = $(options.itemTemplateSelector, $this);
+        options.emptyTemplate = $(options.emptyTemplateSelector, $this);
+        options.container = $(options.containerSelector, $this);
+        options.add = $(options.addSelector, $this);
+        $this.data('nested-fields.options', options); 
+
+        bindInsertToAdd(options);
+        bindRemoveToItems(options);
+      });
     },
     
     insert: function(callback, options) {

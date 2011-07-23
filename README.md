@@ -192,6 +192,36 @@ The code above inserts a new item and does not execute the `beforeInsert` callba
 These methods can be called from the element where nested fields are applied (e.g. a form) or from any element inside it (e.g. an input or the container itself).
 
 
+Multiples Nested Fields
+-----------------------
+
+It is easy to have multiple nested fields on the same page. Instead of applying `nestedFields()` on the form, put the elements (items, container, add, remove) inside a wrapper and apply nested fields to it.
+
+    <!-- ERB Code -->
+    <h2>Phones</h2>
+    <div id="phones">
+      <div class="container">
+        <%= f.nested_fields_for :phones do |f| %>
+          <% ... %>
+        <% end %>
+      </div>
+      <a href="#" class="add">add phone</a>
+    </div>
+    
+    <h2>Addresses</h2>
+    <div id="addresses">
+      <div class="container">
+        <%= f.nested_fields_for :addresses do |f| %>
+          <% ... %>
+        <% end %>
+      </div>
+      <a href="#" class="add">add address</a>
+    </div>
+    
+    // JS Code
+    $('#phones, #addresses').nestedFields();
+
+
 Demo
 ----
 
