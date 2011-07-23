@@ -114,6 +114,20 @@ To implement this on the basic example, do something like:
 
 And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
 
+#### render_template
+
+When `nested_fields_for` is called, it also includes a `<script>` tag with the html template of a new item, so the javascript code knows what to insert. But sometimes it is not possible to put the template just after the items. For example, you can be inside a table (tables cannot have script elements inside it) or have multi-level nested items (the templates would be recursively repeated). In these cases you need to render the template manually.
+
+To do this, just set the `render_template` option to `false` and use the `nested_fields_template` helper to put the templates anywhere on the page.
+  
+    <%= f.nested_fields_for :phones, render_template: false do |f| %>
+      <% nested field code %>
+    <% end %>
+    <!-- some lines after -->
+    <%= nested_fields_templates %>
+
+Keep in mind that you can call the templates only after `nested_fields_for` and inside the DOM element you apply the `nestedFields()` javascript, so it still can find the templates.
+
 ### Javascript Options
 
 #### Selectors
