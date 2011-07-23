@@ -192,10 +192,10 @@ The code above inserts a new item and does not execute the `beforeInsert` callba
 These methods can be called from the element where nested fields are applied (e.g. a form) or from any element inside it (e.g. an input or the container itself).
 
 
-Multiples Nested Fields
+Multiple Nested Fields
 -----------------------
 
-It is easy to have multiple nested fields on the same page. Instead of applying `nestedFields()` on the form, put the elements (items, container, add, remove) inside a wrapper and apply nested fields to it.
+It is easy to have multiple nested fields on the same page. Instead of applying `nestedFields()` to the form, put the elements (items, container, add, remove) inside a wrapper and apply nested fields to it.
 
     <!-- ERB Code -->
     <h2>Phones</h2>
