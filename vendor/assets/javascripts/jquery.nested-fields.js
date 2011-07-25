@@ -29,10 +29,10 @@
       return this.each(function() {        
         var $this = $(this);
         if($(this).data('nested-fields.options')) {
-          console.log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
+          log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
           return $this;
         } else if(getOptions($this)) {
-          console.log('You cannot nest nested fields. Who would say that, uh?');
+          log('You cannot nest nested fields. Who would say that, uh?');
           return $this;
         }
 
@@ -217,6 +217,14 @@
   
   function findEmpty(options) {
     return options.container.find(options.emptySelector);
+  }
+  
+  // Utility function
+  
+  function log(msg) {
+    if(console && console.log) {
+      console.log(msg);
+    }
   }
   
 })(jQuery);
