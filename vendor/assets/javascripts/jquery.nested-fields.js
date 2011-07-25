@@ -31,9 +31,6 @@
         if($(this).data('nested-fields.options')) {
           log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
           return $this;
-        } else if(getOptions($this)) {
-          log('You cannot nest nested fields. Who would say that, uh?');
-          return $this;
         }
 
         options = $.extend({}, defaultSettings, options);
@@ -88,13 +85,13 @@
   // Initialization functions
   
   function getOptions(element) {
-    element = $(element);
-    while(element.length > 0) {
-      var data = element.data('nested-fields.options');
+    var $element = $(element);
+    while($element.length > 0) {
+      var data = $element.data('nested-fields.options');
       if(data) {
         return data;
       } else {
-        element = element.parent();
+        $element = $element.parent();
       }
     }
     return null;
