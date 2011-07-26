@@ -6,6 +6,16 @@ module AwesomeNestedFields
   end
   
   require 'awesome_nested_fields/version'
+  
+  def self.escape_html_tags(html)
+    html.gsub(/[&><]/) do |char|
+      case char
+      when '<' then '&lt;'
+      when '>' then '&gt;'
+      when '&' then '&amp;'
+      end
+    end.html_safe
+  end
 end
 
 require 'rails/form_helper'

@@ -20,7 +20,8 @@
     emptySelector: '.empty',
     addSelector: '.add',
     removeSelector: '.remove',
-    newItemIndex: 'new_nested_item'
+    newItemIndex: 'new_nested_item',
+    unescapeTemplate: true
   };
   
   // PUBLIC API
@@ -117,6 +118,9 @@
     var newId = new Date().getTime();
     
     var contents = options.itemTemplate.html();
+    if(options['unescapeTemplate']) {
+      contents = unescape_html_tags(contents);
+    }
     var newItem = $(contents.replace(regexp, newId));
     newItem.attr('data-new-record', true);
     newItem.attr('data-record-id', newId);
@@ -216,7 +220,13 @@
     return options.container.find(options.emptySelector);
   }
   
-  // Utility function
+  // Utility functions
+  
+  function unescape_html_tags(html) {
+    var e = document.createElement('div');
+    e.innerHTML = html;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
   
   function log(msg) {
     if(console && console.log) {
