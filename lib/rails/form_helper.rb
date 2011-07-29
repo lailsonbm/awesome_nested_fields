@@ -37,9 +37,12 @@ protected
     end
     
     if options[:show_empty]
-      template = @template.content_tag(:script, type: 'text/html', class: options[:empty_template_class], &block)
-      template = AwesomeNestedFields.escape_html_tags(template) if options[:escape_template]
-      templates << template
+      empty_template = @template.content_tag(:script, type: 'text/html', class: options[:empty_template_class]) do
+        template = @template.capture { yield nil }
+        template = AwesomeNestedFields.escape_html_tags(template) if options[:escape_template]
+        template
+      end
+      templates.safe_concat empty_template
     end
     
     templates
