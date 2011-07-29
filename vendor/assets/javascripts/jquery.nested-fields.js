@@ -193,7 +193,11 @@
   
   function insertEmpty(options) {
     if(findItems(options).length === 0) {
-      options.container.append(options.emptyTemplate.html());
+      var contents = options.emptyTemplate.html();
+      if(options['unescapeTemplate']) {
+        contents = unescape_html_tags(contents);
+      }
+      options.container.append(contents);
     }
   }
   
