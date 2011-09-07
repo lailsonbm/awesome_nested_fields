@@ -30,14 +30,14 @@ ActionView::Helpers::FormBuilder.class_eval do
 protected
   
   def render_nested_fields_template(association, options, &block)
-    templates = @template.content_tag(:script, type: 'text/html', class: options[:item_template_class]) do
-      template = fields_for(association, options[:new_object], child_index: options[:new_item_index], &block)
+    templates = @template.content_tag(:script, :type => 'text/html', :class => options[:item_template_class]) do
+      template = fields_for(association, options[:new_object], :child_index => options[:new_item_index], &block)
       template = AwesomeNestedFields.escape_html_tags(template) if options[:escape_template]
       template
     end
     
     if options[:show_empty]
-      empty_template = @template.content_tag(:script, type: 'text/html', class: options[:empty_template_class]) do
+      empty_template = @template.content_tag(:script, :type => 'text/html', :class => options[:empty_template_class]) do
         template = @template.capture { yield nil }
         template = AwesomeNestedFields.escape_html_tags(template) if options[:escape_template]
         template
