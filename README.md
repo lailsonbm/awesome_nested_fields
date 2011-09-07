@@ -242,6 +242,7 @@ TODO
 * Make sure it can degrade gracefully
 * Implement jQuery autoload
 * Make `nested_fields_for` works without a block (looking for partials)
+* Document how to nest nested fields (yeah, you can do that) ;-)
 
 
 Copyleft
