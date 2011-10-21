@@ -29,7 +29,7 @@
     init: function(options) {
       return this.each(function() {        
         var $this = $(this);
-        if($(this).data('nested-fields.options')) {
+        if($this.data('nested-fields.options')) {
           log('Nested fields already defined for this element. If you want to redefine options, destroy it and init again.');
           return $this;
         }
@@ -42,7 +42,7 @@
         $this.data('nested-fields.options', options); 
 
         bindInsertToAdd(options);
-        bindRemoveToItems(options);
+        bindRemoveToItems(options, $this);
       });
     },
     
@@ -105,8 +105,8 @@
     });
   }
   
-  function bindRemoveToItems(options) {
-    $(options.itemSelector, options.containerSelector).each(function(i, item) {
+  function bindRemoveToItems(options, $this) {
+    $(options.itemSelector, $this).each(function(i, item) {
       bindRemoveToItem(item, options);
     });
   }
@@ -178,7 +178,7 @@
     if(!options.skipBefore) {
       options.beforeRemove($element, remove);
       if(options.beforeRemove.length <= 1) {
-        insert();
+        remove();
       }
     } else {
       remove();
