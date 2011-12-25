@@ -59,7 +59,7 @@ The next step is set up the form view with the `nested_fields_for` method. It re
       <% # person fields... %>
       
       <h2>Phones</h2>
-      <div class="container">
+      <div class="items">
         <%= f.nested_fields_for :phones do |f| %>
           <fieldset class="item">
             <%= f.label :number %>
@@ -79,7 +79,7 @@ The next step is set up the form view with the `nested_fields_for` method. It re
 
 The `nested_fields_for` method lists the phones this person has and also adds an empty template to the page for creating new phones. (Actually, there is too much code inside the block. If you're not working with a simple example like this you better extract this code into a partial and call just `render :phones` inside the block. Good coding practices, you know.)
 
-If you're paying attention, you noticed the key elements are marked with special class names. We *need* this for the javascript code, so it knows what to do with each HTML element: the one that have the children must have the class `container`; each child must be marked with the class `item`; inside an item, the link for removal must have the class `remove`; and the link to add new items must have the class `add`. We can change the names later, but these are the default choices. Finally, don't forget to add the `id` field, as it is needed by AR to identify whether this is an existing or a new element, and the `_destroy` field  to activate deletion when the user clicks on the remove link.
+If you're paying attention, you noticed the key elements are marked with special class names. We *need* this for the javascript code, so it knows what to do with each HTML element: the one that have the children must have the class `items`; each child must be marked with the class `item`; inside an item, the link for removal must have the class `remove`; and the link to add new items must have the class `add`. We can change the names later, but these are the default choices. Finally, don't forget to add the `id` field, as it is needed by AR to identify whether this is an existing or a new element, and the `_destroy` field  to activate deletion when the user clicks on the remove link.
 
 ### Javascript
 
@@ -135,7 +135,7 @@ Keep in mind that you can call the templates only after `nested_fields_for` and 
 To make nested fields work dynamically, the JS code needs to know what elements to use. By default, this is made by marking key elements with CSS classes, but you can use other selectors (any valid jQuery selector will do). The available options are shown below.
 
 * `itemSelector` marks each item from the collection (`.item` by default)
-* `containerSelector` marks the element that contains the items (`.container` by default)
+* `containerSelector` marks the element that contains the items (`.items` by default). You can also use `.container` by default, but beware this class name conflicts with many CSS frameworks (Blueprint, 960.gs, Bootstrap, Foundation, ...)
 * `addSelector` marks the element that will add a new item to the container when clicked (`.add` by default)
 * `removeSelector` marks the element inside an item that will remove it when clicked (`.remove` by default)
 * `emptySelector` marks the element that is shown when there are no items; used in conjunction with `show_empty` option (`.empty` by default)
@@ -200,7 +200,7 @@ It is easy to have multiple nested fields on the same page. Instead of applying 
     <!-- ERB Code -->
     <h2>Phones</h2>
     <div id="phones">
-      <div class="container">
+      <div class="items">
         <%= f.nested_fields_for :phones do |f| %>
           <% ... %>
         <% end %>
@@ -210,7 +210,7 @@ It is easy to have multiple nested fields on the same page. Instead of applying 
     
     <h2>Addresses</h2>
     <div id="addresses">
-      <div class="container">
+      <div class="items">
         <%= f.nested_fields_for :addresses do |f| %>
           <% ... %>
         <% end %>

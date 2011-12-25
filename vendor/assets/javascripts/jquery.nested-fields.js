@@ -15,7 +15,7 @@
     afterRemove: function(item) {},
     itemTemplateSelector: '.item.template',
     emptyTemplateSelector: '.empty.template',
-    containerSelector: '.container',
+    containerSelector: '.items, .container',
     itemSelector: '.item',
     emptySelector: '.empty',
     addSelector: '.add',
