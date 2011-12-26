@@ -212,6 +212,12 @@ Compatibility
 awesome_nested_fields works only with jQuery and Rails 3.x. Sorry, Rails 2.x users.
 
 
+Contributors
+------------
+
+* Juliana Lucena ([julianalucena](https://github.com/julianalucena))
+
+
 TODO
 ----
 
