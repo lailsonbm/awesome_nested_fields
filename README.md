@@ -192,106 +192,10 @@ The code above inserts a new item and does not execute the `beforeInsert` callba
 These methods can be called from the element where nested fields are applied (e.g. a form) or from any element inside it (e.g. an input or the container itself).
 
 
-Multiple Nested Fields
------------------------
+More on the Wiki
+----------------
 
-It is easy to have multiple nested fields on the same page. Instead of applying `nestedFields()` to the form, put the elements (items, container, add, remove) inside a wrapper and apply nested fields to it.
-
-    <!-- ERB Code -->
-    <h2>Phones</h2>
-    <div id="phones">
-      <div class="items">
-        <%= f.nested_fields_for :phones do |f| %>
-          <% ... %>
-        <% end %>
-      </div>
-      <a href="#" class="add">add phone</a>
-    </div>
-
-    <h2>Addresses</h2>
-    <div id="addresses">
-      <div class="items">
-        <%= f.nested_fields_for :addresses do |f| %>
-          <% ... %>
-        <% end %>
-      </div>
-      <a href="#" class="add">add address</a>
-    </div>
-
-    // JS Code
-    $('#phones, #addresses').nestedFields();
-
-
-Multi Level Nested Fields
--------------------------
-
-It is possible to have multi level nested items. To do this, you will need to use some other options when calling `nested_fields_for` and `nestedFields()`, so awesome nested fields can identify which item is dealing.
-
-### When calling `nested_fields_for`
-
-You will need to use the view option `new_item_index`, so the diferent form items can be identified.
-
-    <!-- ERB Code -->
-    <%= f.nested_fields_for :resources, new_item_index: 'new_resource_item' do |f| %>
-      <% ... %>
-    <% end %>
-
-Besides, the template of outsider field (that has another field inside) has to be rendered manually to avoid templates recursively repeated.
-
-    <!-- ERB Code -->
-    <div class="tasks-container">
-      <%= f.nested_fields_for :tasks, render_template: false, new_item_index: 'new_task_item' do |f| %>
-        <% ... %>
-      <% end %>
-    </div>
-    <%= nested_fields_templates %>
-
-The code above generates all templates with respective `new_item_index` like below:
-
-    <input id="project_tasks_attributes_new_task_item_resources_attributes_new_resource_item_name" name="project[tasks_attributes][new_task_item][resources_attributes][new_resource_item][name]" size="30" type="text"/>
-
-### When calling `nestedFields()`
-
-It is necessary to call `nestedFields()` in each level of fields, so you need to differentiate the elements (items, container, add, remove) of each model. It is also necessary to identify which template should be used by `itemTemplateSelector` option.
-Additionally when a first level nested field is added you have to use `afterInsert` callback to:
-
-1. Apply `nestedFields()` to it's nested field (so this deeper field can take advantage of awesome nested fields).
-
-2. Insert an item of the deeper model, so the user can gracefully fill it.
-
-
-CoffeeScript Code:
-
-    jQuery ($) ->
-      # Options for deeper nested fields
-      resourcesOptions = {
-        itemSelector: ".resource",
-        containerSelector: ".resources-container",
-        addSelector: ".resource-add",
-        removeSelector: ".resource-remove",
-        itemTemplateSelector: ".resource.template", # Identifies which template to use
-        new_item_index: "new_resource_index" # Same used on view options
-      }
-
-      # Apply nestedFields to the outsider nested fields (first nested fields level)
-      $(".project-form").nestedFields({
-        itemSelector: ".task",
-        containerSelector: ".tasks-container",
-        addSelector: ".task-add",
-        removeSelector: ".task-remove",
-        itemTemplateSelector: ".task.template",
-        new_item_index: "new_task_index",
-        afterInsert: (item) ->
-          # Applies nestedFields to this task's resources (deeper field)
-          item.find(".nested-level-2").nestedFields(resourcesOptions)
-          # Inserts a resource item (of the deeper field)
-          item.find(".nested-level-2").nestedFields("insert")
-      })
-
-      # Applies nestedFields to all projects tasks on page (to the second nested fields level)
-      $(".project-form").find(".nested-level-2").nestedFields(resourcesOptions)
-
-You can view a demo of multi level nested fields at https://github.com/julianalucena/multi_level_awesome_nested_fields_demo.
+Check out the wiki to know how to put Multiple Nested Fields on the same page or how to create Multi-level Nested Fields.
 
 
 Demo
@@ -300,8 +204,6 @@ Demo
 There is a live demo at http://phonebook.guava.com.br/.
 
 You can find the demo code at https://github.com/lailsonbm/awesome_nested_fields_demo.
-
-You can find the demo code of **multi level** awesome nested fields at https://github.com/julianalucena/multi_level_awesome_nested_fields_demo.
 
 
 Compatibility
