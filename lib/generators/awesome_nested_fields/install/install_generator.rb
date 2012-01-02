@@ -8,7 +8,7 @@ module AwesomeNestedFields
       
       def copy_js
         say_status('copying', 'awesome nested fields js file', :green)
-        copy_file 'jquery.nested-fields.js', 'public/javascripts/jquery.nested-fields.js'
+        copy_file 'jquery.nested-fields.min.js', 'public/javascripts/jquery.nested-fields.min.js'
       end
     end
   end
