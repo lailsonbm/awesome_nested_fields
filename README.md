@@ -11,11 +11,15 @@ Installation
 
 1. Add the gem to your Gemfile and run `bundle install` to make sure the gem gets installed.
 
-        gem 'awesome_nested_fields'
+```ruby
+gem 'awesome_nested_fields'
+```
 
 2. Add this line to `app/assets/javascripts/application.js` (or where you prefer) so the javascript dependency is added to the asset pipeline. Be sure to include this line after jQuery and jQuery UJS Adapter.
 
-        //= require jquery.nested-fields
+```coffeescript
+//= require jquery.nested-fields
+```
 
 3. Rock with your _awesome_ nested models.
 
@@ -24,15 +28,19 @@ Installation
 
 1. Add the gem to your Gemfile and run `bundle install` to make sure the gem gets installed. Be sure to include it after `jquery-rails` so the javascript files are added in the correct order at the templates.
 
-        gem 'awesome_nested_fields'
+```ruby
+gem 'awesome_nested_fields'
+```
 
 2. Copy the javascript dependency to `public/javascripts` by using the generator.
 
-        rails generate awesome_nested_fields:install
+  rails generate awesome_nested_fields:install
 
 3. (Optional) The javascript dependency will be added automatically to the defaults javascript files. If you don't use `javascript_include_tag :defaults` in your templates for some reason, require the file manually.
 
-        <script src="/javascripts/jquery.nested-fields.min.js" type="text/javascript"></script>
+```html
+<script src="/javascripts/jquery.nested-fields.min.js" type="text/javascript"></script>
+```
 
 4. Now you're ready to rock with your _awesome_ nested models. It will be so fun as in Rails 3.1, I promise.
 
@@ -44,10 +52,12 @@ Basic Usage
 
 First, make sure the object that has the `has_many` or `has_and_belongs_to_many` relation accepts nested attributes for the collection you want. For example, if a person _has_many_ phones, we'll have a model like this:
 
-    class Person < ActiveRecord::Base
-      has_many :phones
-      accepts_nested_attributes_for :phones, allow_destroy: true
-    end
+```ruby
+class Person < ActiveRecord::Base
+  has_many :phones
+  accepts_nested_attributes_for :phones, allow_destroy: true
+end
+```
 
 The `accepts_nested_attributes_for` is a method from Active Record that allows you to pass attributes of nested models directly to its parent, instead of instantiate each child object separately. In this case, `Person` gains a method called `phones_attributes=`, that accepts data for new and existing phones of a given person. The `allow_destroy` option enables us to also delete child objects. To know more about nested attributes, check out the [ActiveRecord::NestedAttribute](https://github.com/rails/rails/blob/master/activerecord/lib/active_record/nested_attributes.rb#L1) class.
 
@@ -55,27 +65,29 @@ The `accepts_nested_attributes_for` is a method from Active Record that allows y
 
 The next step is set up the form view with the `nested_fields_for` method. It receives the association/collection name, an optional hash of options (humm, a pun) and a block with the nested fields. Proceeding with the person/phones example, we can have a form like this:
 
-    <%= form_for(@person) do |f| %>
-      <% # person fields... %>
+```erb
+<%= form_for(@person) do |f| %>
+  <% # person fields... %>
 
-      <h2>Phones</h2>
-      <div class="items">
-        <%= f.nested_fields_for :phones do |f| %>
-          <fieldset class="item">
-            <%= f.label :number %>
-            <%= f.text_field :number %>
+  <h2>Phones</h2>
+  <div class="items">
+    <%= f.nested_fields_for :phones do |f| %>
+      <fieldset class="item">
+        <%= f.label :number %>
+        <%= f.text_field :number %>
 
-            <a href="#" class="remove">remove</a>
+        <a href="#" class="remove">remove</a>
 
-            <%= f.hidden_field :id %>
-            <%= f.hidden_field :_destroy %>
-          </fieldset>
-        <% end %>
-      </div>
-      <a href="#" class="add">add phone</a>
-
-      <% # more person fields... %>
+        <%= f.hidden_field :id %>
+        <%= f.hidden_field :_destroy %>
+      </fieldset>
     <% end %>
+  </div>
+  <a href="#" class="add">add phone</a>
+
+  <% # more person fields... %>
+<% end %>
+```
 
 The `nested_fields_for` method lists the phones this person has and also adds an empty template to the page for creating new phones. (Actually, there is too much code inside the block. If you're not working with a simple example like this you better extract this code into a partial and call just `render :phones` inside the block. Good coding practices, you know.)
 
@@ -85,9 +97,11 @@ If you're paying attention, you noticed the key elements are marked with special
 
 This is the easiest part: just activate the nested fields actions when the page loads. We can put this in the `application.js` file (or in any other place that gets executed in the page):
 
-    $(document).ready(function(e) {
-      $('FORM').nestedFields();
-    });
+```javascript
+$(document).ready(function(e) {
+  $('FORM').nestedFields();
+});
+```
 
 Now enjoy your new nested model form!
 
@@ -104,13 +118,15 @@ There are some view options, but most are internal. There is just one you really
 Sometimes you want to show something when the collection is empty. Just set `show_empty` to `true` and prepare the block to receive `nil` when the collection is empty. Awesome nested fields will take care to show the empty message when there are no elements and remove it when one is added.
 To implement this on the basic example, do something like:
 
-    <%= f.nested_fields_for :phones, show_empty: true do |f| %>
-      <% if f %>
-        <% fields code... %>
-      <% else %>
-        <p class="empty">There are no phones.</p>
-      <% end %>
-    <% end %>
+```erb
+<%= f.nested_fields_for :phones, show_empty: true do |f| %>
+  <% if f %>
+    <% fields code... %>
+  <% else %>
+    <p class="empty">There are no phones.</p>
+  <% end %>
+<% end %>
+```
 
 And yeah, you need to mark it with the class `empty` or any other selector configured via javascript.
 
@@ -120,11 +136,13 @@ When `nested_fields_for` is called, it also includes a `<script>` tag with the h
 
 To do this, just set the `render_template` option to `false` and use the `nested_fields_template` helper to put the templates anywhere on the page.
 
-    <%= f.nested_fields_for :phones, render_template: false do |f| %>
-      <% nested field code %>
-    <% end %>
-    <!-- some lines after -->
-    <%= nested_fields_templates %>
+```erb
+<%= f.nested_fields_for :phones, render_template: false do |f| %>
+  <% nested field code %>
+<% end %>
+<!-- some lines after -->
+<%= nested_fields_templates %>
+```
 
 Keep in mind that you can call the templates only after `nested_fields_for` and inside the DOM element you apply the `nestedFields()` javascript, so it still can find the templates.
 
@@ -142,44 +160,51 @@ To make nested fields work dynamically, the JS code needs to know what elements 
 
 For example, if you are using nested fields inside a table, you can do:
 
-    element.nestedFields({
-      containerSelector: 'tbody',
-      itemSelector: 'tr'
-    });
-
+```javascript
+element.nestedFields({
+  containerSelector: 'tbody',
+  itemSelector: 'tr'
+});
+```
 
 #### Callbacks
 
 Actions can be executed before or after items get inserted or removed. There are four callbacks available: `beforeInsert`, `afterInsert`, `beforeRemove` and `afterRemove`. All of them receive the item as the first parameter, so you can query or modify it before the operation.
 
-    element.nestedFields({
-      beforeInsert: function(item) {
-        item.css('color', 'red'); // Make some operation
-        console.log(item + ' will be inserted.')
-      },
-      afterRemove: function(item) {
-        console.log(item + ' was removed.');
-      }
-    });
+```javascript
+element.nestedFields({
+  beforeInsert: function(item) {
+    item.css('color', 'red'); // Make some operation
+    console.log(item + ' will be inserted.')
+  },
+  afterRemove: function(item) {
+    console.log(item + ' was removed.');
+  }
+});
+```
 
 The before callbacks also allow you to control when the element will be inserted or removed, so you can perform async operations (ajax, of course!) or choose to not insert or remove the element at all if some condition is not met. Just receive a second parameter as the handler function.
 
-    element.nestedFields({
-      beforeInsert: function(item, insert) {
-        $.get('/ajax_function', function() {
-          insert();
-        });
-      }
+```javascript
+element.nestedFields({
+  beforeInsert: function(item, insert) {
+    $.get('/ajax_function', function() {
+      insert();
     });
+  }
+});
+```
 
 
 ### Javascript API
 
 It is possible to control nested fields programmatically using a jQuery-style API.
 
-    element.nestedFields('insert', function(item) {
-      // Make some operation with item
-    }, {skipBefore: true});
+```javascript
+element.nestedFields('insert', function(item) {
+  // Make some operation with item
+}, {skipBefore: true});
+```
 
 The code above inserts a new item and does not execute the `beforeInsert` callback function. The complete list of available methods is shown below.
 
