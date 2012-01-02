@@ -32,7 +32,7 @@ Installation
 
 3. (Optional) The javascript dependency will be added automatically to the defaults javascript files. If you don't use `javascript_include_tag :defaults` in your templates for some reason, require the file manually.
 
-        <script src="/javascripts/jquery.nested-fields.js" type="text/javascript"></script>
+        <script src="/javascripts/jquery.nested-fields.min.js" type="text/javascript"></script>
 
 4. Now you're ready to rock with your _awesome_ nested models. It will be so fun as in Rails 3.1, I promise.
 
