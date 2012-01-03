@@ -242,12 +242,12 @@ Contributors
 
 * Chris Parker ([mrcsparker](https://github.com/mrcsparker))
 * Juliana Lucena ([julianalucena](https://github.com/julianalucena))
-
+* Rodrigo Vieira ([rodrigoalvesvieira](https://github.com/rodrigoalvesvieira))
 
 TODO
 ----
 
-* Write tests
+* Write more tests
 * Make sure it can degrade gracefully
 * Implement jQuery autoload
 * Make `nested_fields_for` works without a block (looking for partials)
