@@ -230,4 +230,4 @@ TODO
 
 Copyleft
 --------
-Copyleft (c) 2011 Lailson Bandeira (http://lailsonbandeira.com/). See LICENSE for details.
+Copyleft (c) 2011-2012 Lailson Bandeira (http://lailsonbandeira.com/). See LICENSE for details.
