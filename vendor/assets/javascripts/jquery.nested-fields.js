@@ -211,6 +211,7 @@
       if(confirmed === undefined || confirmed === true) {
         removeItemWithCallbacks(item, options);
       }
+      return false;
     });
   }
   
