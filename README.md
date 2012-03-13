@@ -209,7 +209,7 @@ You can find the demo code at https://github.com/lailsonbm/awesome_nested_fields
 Compatibility
 -------------
 
-awesome_nested_fields works only with jQuery and Rails 3.x. Sorry, Rails 2.x users.
+awesome_nested_fields works only with jQuery and Rails 3.x. Sorry, Rails 2.x users. Tested with ActiveRecord and Mongoid (but should work wherever `accepts_nested_fields` method is available).
 
 
 Contributors
