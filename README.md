@@ -227,6 +227,10 @@ TODO
 * Implement jQuery autoload
 * Make `nested_fields_for` works without a block (looking for partials)
 
+Donation
+--------
+[![Pledgie](https://www.pledgie.com/campaigns/18414.png)][pledgie]
+[pledgie]: http://www.pledgie.com/campaigns/18414
 
 Copyleft
 --------
