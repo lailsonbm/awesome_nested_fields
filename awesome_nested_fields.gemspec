@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 require File.expand_path('../lib/awesome_nested_fields/version', __FILE__)
 
 Gem::Specification.new do |s|
@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "awesome_nested_fields"
 
   s.add_development_dependency 'bundler', '>= 1.0.0'
+  s.add_development_dependency 'rspec', '>=2'
+  s.add_development_dependency 'turn', '~> 0.8.3' 
   s.add_runtime_dependency 'rails', '>= 3.0.0'
 
   s.files        = `git ls-files`.split("\n")

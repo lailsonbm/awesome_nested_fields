@@ -1,3 +1,6 @@
+require "rails" unless defined?(Rails)
+require "action_view" unless defined?(ActionView)
+
 module AwesomeNestedFields
   if ::Rails.version < '3.1'
     require 'awesome_nested_fields/railtie'
