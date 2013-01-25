@@ -230,7 +230,7 @@
   function unescape_html_tags(html) {
     var e = document.createElement('div');
     e.innerHTML = html;
-    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue.trim();
   }
   
   function log(msg) {
