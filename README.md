@@ -254,8 +254,7 @@ TODO
 
 Donation
 --------
-[![Pledgie](https://www.pledgie.com/campaigns/18414.png)][pledgie]
-[pledgie]: http://www.pledgie.com/campaigns/18414
+[![Paypal Donation](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RK546KAJQ539U)
 
 Copyleft
 --------
