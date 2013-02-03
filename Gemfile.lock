@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_nested_fields (0.6.1)
+    awesome_nested_fields (0.6.2)
       rails (>= 3.0.0)
 
 GEM
