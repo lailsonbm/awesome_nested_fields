@@ -247,6 +247,7 @@ Contributors
 TODO
 ----
 
+* Add a changelog file.
 * Write more tests
 * Make sure it can degrade gracefully
 * Implement jQuery autoload
