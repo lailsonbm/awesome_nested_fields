@@ -50,7 +50,7 @@ Basic Usage
 
 ### Model
 
-First, make sure the object that has the `has_many` or `has_and_belongs_to_many` relation accepts nested attributes for the collection you want. For example, if a person _has_many_ phones, we'll have a model like this:
+First, make sure the object that has the `has_many` or `has_and_belongs_to_many` relation accepts nested attributes for the collection you want. For example, if a person `has_many` phones, we'll have a model like this:
 
 ```ruby
 class Person < ActiveRecord::Base
