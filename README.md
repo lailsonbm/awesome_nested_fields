@@ -1,3 +1,7 @@
+Deprecation Notice
+=====================
+⚠️ This gem is NOT being mantained anymore. You can use [cocoon](https://github.com/nathanvda/cocoon) instead.
+
 Awesome Nested Fields [![Gem Version](https://badge.fury.io/rb/awesome_nested_fields.png)](http://badge.fury.io/rb/awesome_nested_fields)
 =====================
 
